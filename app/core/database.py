@@ -1,46 +1,34 @@
-
-from collections.abc import Generator
-
 from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
-from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.orm import sessionmaker, DeclarativeBase
 
 from app.core.config import settings
 
 
-DATABASE_URL = URL.create(
-    drivername="postgresql+psycopg",
-    username=settings.DB_USER,
-    password=settings.DB_PASSWORD,
-    host=settings.DB_HOST,
-    port=settings.DB_PORT,
-    database=settings.DB_NAME,
-)
-
-
+# Conexão com PostgreSQL
 engine = create_engine(
-    DATABASE_URL,
-    pool_pre_ping=True,
+    settings.DATABASE_URL,
+    echo=True
 )
 
 
+# Gerenciamento das sessões
 SessionLocal = sessionmaker(
-    bind=engine,
+    autocommit=False,
     autoflush=False,
-    expire_on_commit=False,
+    bind=engine
 )
 
 
+# Classe base dos nossos modelos
 class Base(DeclarativeBase):
     pass
 
 
-def get_db() -> Generator[Session, None, None]:
-
+# Dependência para disponibilizar sessões
+def get_db():
     db = SessionLocal()
 
     try:
         yield db
-
     finally:
         db.close()

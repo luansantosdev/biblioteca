@@ -1,11 +1,12 @@
-
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from sqlalchemy.engine import URL
 
 from app.core.config import settings
 from app.core.database import Base
+from app.models.livro import Livro
 
+target_metadata = Base.metadata
 config = context.config
 
 # Configuração de conexão
@@ -26,7 +27,7 @@ config.set_main_option(
 )
 
 # Metadados dos Models
-target_metadata = Base.metadata
+
 
 
 def run_migrations_offline():

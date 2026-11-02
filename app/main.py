@@ -1,22 +1,23 @@
 
 from fastapi import FastAPI
 
+from app.controllers.livro_controller import router as livro_router
+
+
 app = FastAPI(
-    title="Biblioteca API",
-    description="API REST para gerenciamento de biblioteca",
-    version="1.0.0",
+    title="API Biblioteca",
+    description="API para gerenciamento de livros",
+    version="1.0.0"
 )
 
 
-@app.get("/", tags=["Sistema"])
+# Registrar as rotas de livros
+app.include_router(livro_router)
+
+
+@app.get("/")
 def inicio():
     return {
-        "mensagem": "API da Biblioteca funcionando!"
-    }
-
-
-@app.get("/health", tags=["Sistema"])
-def health():
-    return {
-        "status": "ok"
+        "mensagem": "API Biblioteca funcionando!",
+        "documentacao": "/docs"
     }
