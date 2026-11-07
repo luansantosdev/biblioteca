@@ -2,9 +2,12 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 from sqlalchemy.engine import URL
 
+
 from app.core.config import settings
 from app.core.database import Base
 from app.models.livro import Livro
+from app.models.categoria import Categoria
+
 
 target_metadata = Base.metadata
 config = context.config
