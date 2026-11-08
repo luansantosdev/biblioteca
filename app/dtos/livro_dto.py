@@ -5,6 +5,7 @@ from typing import Optional
 
 # DTO para cadastrar um livro
 class LivroCreate(BaseModel):
+    editora_id: Optional[int] = Field(default=None, gt=0)
     titulo: str = Field(min_length=1, max_length=150)
     autor: str = Field(min_length=1, max_length=100)
     isbn: str = Field(min_length=1, max_length=20)
@@ -14,6 +15,7 @@ class LivroCreate(BaseModel):
 
 # DTO para atualizar um livro
 class LivroUpdate(BaseModel):
+    editora_id: Optional[int] = Field(default=None, gt=0)
     titulo: Optional[str] = Field(default=None, min_length=1, max_length=150)
     autor: Optional[str] = Field(default=None, min_length=1, max_length=100)
     isbn: Optional[str] = Field(default=None, min_length=1, max_length=20)
@@ -23,6 +25,7 @@ class LivroUpdate(BaseModel):
 
 # DTO para retornar os dados do livro
 class LivroResponse(BaseModel):
+    editora_id: Optional[int] = None
     id: int
     titulo: str
     autor: str

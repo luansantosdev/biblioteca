@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.dtos.livro_dto import LivroCreate, LivroUpdate
 from app.repositories.livro_repository import LivroRepository
+from app.services.editora_service import EditoraService
 
 
 class LivroService:
@@ -16,6 +17,9 @@ class LivroService:
 
         if livro_existente:
             raise ValueError("Já existe um livro cadastrado com esse ISBN.")
+
+        if dados.editora_id is not None:
+            EditoraService.buscar_por_id(db, dados.editora_id)
 
         return LivroRepository.criar(db, dados)
 
@@ -52,6 +56,9 @@ class LivroService:
 
             if livro_existente:
                 raise ValueError("Já existe outro livro cadastrado com esse ISBN.")
+
+        if dados.editora_id is not None:
+            EditoraService.buscar_por_id(db, dados.editora_id)
 
         return LivroRepository.atualizar(db, livro, dados)
 
