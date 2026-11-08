@@ -25,6 +25,8 @@ def criar_livro(
 ):
     try:
         return LivroService.criar(db, dados)
+    except LookupError as erro:
+        raise HTTPException(status_code=404, detail=str(erro))
     except ValueError as erro:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,

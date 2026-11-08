@@ -8,6 +8,8 @@ from app.core.database import Base
 from app.models.livro import Livro
 from app.models.categoria import Categoria
 from app.models.avaliacao import Avaliacao
+from app.models.autor import Autor
+from app.models.editora import Editora
 
 target_metadata = Base.metadata
 config = context.config

@@ -1,7 +1,8 @@
 
 from sqlalchemy import String, Integer, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column
-
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 
@@ -48,3 +49,19 @@ class Livro(Base):
         nullable=False,
         default=0
     )
+    autor_id: Mapped[int | None] = mapped_column(
+    ForeignKey("autores.id"),
+    nullable=True
+)
+
+    autor_obj = relationship(
+        "Autor",
+        back_populates="livros"
+)   
+
+    editora_id: Mapped[int | None] = mapped_column(
+        ForeignKey("editoras.id", name="fk_livros_editoras", ondelete="SET NULL"),
+        nullable=True
+    )
+
+    editora_obj = relationship("Editora", back_populates="livros")
