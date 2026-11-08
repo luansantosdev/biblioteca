@@ -3,6 +3,7 @@ from fastapi import FastAPI
 
 from app.controllers.livro_controller import router as livro_router
 from app.controllers.categoria_controller import router as categoria_router
+from app.controllers.avaliacao_controller import router as avaliacao_router
 
 
 app = FastAPI(
@@ -15,6 +16,7 @@ app = FastAPI(
 # Registrar as rotas
 app.include_router(livro_router)
 app.include_router(categoria_router)
+app.include_router(avaliacao_router)
 
 
 @app.get("/")

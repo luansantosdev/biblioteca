@@ -7,7 +7,7 @@ from app.core.config import settings
 from app.core.database import Base
 from app.models.livro import Livro
 from app.models.categoria import Categoria
-
+from app.models.avaliacao import Avaliacao
 
 target_metadata = Base.metadata
 config = context.config
